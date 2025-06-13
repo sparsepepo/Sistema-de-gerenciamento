@@ -41,18 +41,70 @@ void listarTarefas(){
     fclose(fp);
 }
 
+void editarTarefa(){
+
+    char titulo[1000];
+    char desc[1000];
+    char prioridade[1000];
+    char status[1000];
+
+    FILE *fp;
+    fp = fopen("sistema.txt", "w");
+
+    printf("Qual o titulo da tarefa para ser editada?\n");
+    scanf("%s", titulo);
+
+    printf("Qual a descrição da tarefa para ser editada?\n");
+    scanf("%s", desc);
+
+    printf("Diga a prioridade da tarefa para ser editada?:\n");
+    scanf("%s", prioridade);
+
+    printf("Qual o status da tarefa para ser editada?\n");
+    scanf("%s", status);
+
+    fprintf(fp, "Título: %s\nDescrição: %s\nPrioridade: %s\nStatus: %s\n-------------------\n", titulo, desc, prioridade, status);
+
+    fclose(fp);
+
+}
+
+void excluirTarefa(){
+
+    char titulo[1000];
+
+    FILE *fp;
+    fp = fopen("sistema.txt", "w");
+
+    printf("Diga o titulo da tarefa para ser excluida?\n");
+    scanf("%s", titulo);
+
+    fprintf(fp, "\n");
+
+    fclose(fp);
+
+}
+
+
+
 int main(void){
 
-    printf("SISTEMA INICIADO\nO que deseja fazer?\n1 - Adicionar tarefas\n2 - Listar tarefas cadastradas\n3 - Editar uma tarefa específica\n4 - Excluir tarefas\n5 - Salvar as tarefas em um arquivo no formato .txt.\n");
+    int resposta = 1;
+
+    printf("SISTEMA INICIADO\nO que deseja fazer?\n1 - Adicionar tarefas\n2 - Listar tarefas cadastradas\n3 - Editar uma tarefa específica\n4 - Excluir tarefas\n5 - Sair\n");
     
     int escolha, quantia;
     char matriz[10000][4][50];
+    do{
+        scanf("%d", &escolha);
 
-    scanf("%d", &escolha);
-
-    switch(escolha){
-        case 1: printf("Quantas tarefas deseja cadastrar?\n"); scanf("%d", &quantia);
-        cadastrarTarefa(quantia);
-        case 2: listarTarefas();
-    }
+        switch(escolha){
+            case 1: printf("Quantas tarefas deseja cadastrar?\n"); scanf("%d", &quantia);
+            cadastrarTarefa(quantia);break;
+            case 2: listarTarefas();break;
+            case 3: editarTarefa();break;
+            case 4: excluirTarefa();break;
+            case 5: resposta = 0;
+        }
+    }while(resposta == 1);
 }
