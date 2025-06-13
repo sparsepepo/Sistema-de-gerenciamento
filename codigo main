@@ -1,1 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
 
+void cadastrarTarefa(int quantia){
+
+    FILE *fp;
+
+    char titulo[1000];
+    char desc[1000];
+    char prioridade[1000];
+    char status[1000];
+
+    fp = fopen("sistema.txt", "a");
+
+    for(int i = 0; i < quantia; i++){
+        printf("Diga o titulo da tarefa:\n");
+        scanf("%s", titulo);
+
+        printf("Qual a descrição da tarefa?:\n");
+        scanf("%s", desc);
+
+        printf("Diga a prioridade da tarefa:\n");
+        scanf("%s", prioridade);
+
+        printf("Qual o status da tarefa:\n");
+        scanf("%s", status);
+
+        fprintf(fp, "Título: %s\nDescrição: %s\nPrioridade: %s\nStatus: %s\n-------------------\n", titulo, desc, prioridade, status);
+    }
+ 
+    fclose(fp);
+}
+
+void listarTarefas(){
+    FILE *fp;
+    fp = fopen("sistema.txt", "r");
+    char texto;
+    while((texto = fgetc(fp) != EOF)){
+        printf("%c", texto);
+    }
+    fclose(fp);
+}
+
+int main(void){
+
+    printf("SISTEMA INICIADO\nO que deseja fazer?\n1 - Adicionar tarefas\n2 - Listar tarefas cadastradas\n3 - Editar uma tarefa específica\n4 - Excluir tarefas\n5 - Salvar as tarefas em um arquivo no formato .txt.\n");
+    
+    int escolha, quantia;
+    char matriz[10000][4][50];
+
+    scanf("%d", &escolha);
+
+    switch(escolha){
+        case 1: printf("Quantas tarefas deseja cadastrar?\n"); scanf("%d", &quantia);
+        cadastrarTarefa(quantia);
+        case 2: listarTarefas();
+    }
+}
